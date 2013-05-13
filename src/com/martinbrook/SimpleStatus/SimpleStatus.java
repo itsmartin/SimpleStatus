@@ -126,4 +126,13 @@ public class SimpleStatus extends JavaPlugin  {
 		return response;
 	}
 
+
+	protected void broadcastOthers(Player player, String message) {
+		// Broadcast a message to all players except the specified one
+		for (Player p : getServer().getOnlinePlayers()) {
+			if (!p.equals(player)) p.sendMessage(message);
+		}
+		
+	}
+
 }

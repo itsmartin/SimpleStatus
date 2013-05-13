@@ -21,6 +21,7 @@ public class SimpleStatusListener implements Listener {
 		p.sendMessage(plugin.getStatusReport(p));
 		if (plugin.hasStatus(p)) {
 			p.sendMessage(ChatColor.AQUA + "Your current status is: " + ChatColor.BOLD + plugin.getStatus(p));
+			plugin.broadcastOthers(p, plugin.getStatusMessage(p));
 			plugin.getServer().broadcastMessage(plugin.getStatusMessage(p));
 		}
 		p.sendMessage(ChatColor.GRAY + "[SimpleStatus] To update your status, use " + ChatColor.BOLD + "/status");
