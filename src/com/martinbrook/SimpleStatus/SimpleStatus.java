@@ -121,7 +121,7 @@ public class SimpleStatus extends JavaPlugin  {
 		// Generate status list for all online players
 		String response = "";
 		for (Player p : getServer().getOnlinePlayers()) {
-			if (hasStatus(p) && !p.equals(player)) response += getStatusMessage(p) + "\n";
+			if (hasStatus(p) && !p.getName().equalsIgnoreCase(player.getName())) response += getStatusMessage(p) + "\n";
 		}
 		return response;
 	}
@@ -130,7 +130,7 @@ public class SimpleStatus extends JavaPlugin  {
 	protected void broadcastOthers(Player player, String message) {
 		// Broadcast a message to all players except the specified one
 		for (Player p : getServer().getOnlinePlayers()) {
-			if (!p.equals(player)) p.sendMessage(message);
+			if (!p.getName().equalsIgnoreCase(player.getName())) p.sendMessage(message);
 		}
 		
 	}
