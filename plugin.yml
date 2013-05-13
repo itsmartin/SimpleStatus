@@ -1,0 +1,15 @@
+name: SimpleStatus
+main: com.martinbrook.SimpleStatus.SimpleStatus
+version: 0.1
+description: A simple status plugin
+commands:
+ status:
+  description: Update your status
+  usage: /status | /status clear | /status [message]
+  aliases: st
+ afk:
+  description: Set your status to AFK
+  usage: /afk
+ back:
+  description: Remove your AFK status
+  usage: /back
