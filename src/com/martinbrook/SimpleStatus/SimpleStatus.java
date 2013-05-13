@@ -121,7 +121,7 @@ public class SimpleStatus extends JavaPlugin  {
 		// Generate status list for all online players
 		String response = "";
 		for (Player p : getServer().getOnlinePlayers()) {
-			if (hasStatus(p)) response += getStatusMessage(p) + "\n";
+			if (hasStatus(p) && !p.equals(player)) response += getStatusMessage(p) + "\n";
 		}
 		return response;
 	}
