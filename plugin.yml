@@ -5,11 +5,16 @@ description: A simple status plugin
 commands:
  status:
   description: Update your status
-  usage: /status | /status clear | /status [message]
+  usage: /status | /status [message]
   aliases: st
+ clearstatus:
+  description: Clear your status
+  usage: /clearstatus
+  aliases: [cs, clear, back]
  afk:
   description: Set your status to AFK
   usage: /afk
- back:
-  description: Remove your AFK status
-  usage: /back
+ recording:
+  description: Set your status to Recording
+  usage: /recording
+  aliases: rec 

@@ -26,10 +26,12 @@ public class SimpleStatus extends JavaPlugin  {
 
 		if (sender instanceof Player && (c.equals("status") || c.equals("st"))) {
 			response = cStatus((Player) sender, args);
+		} else if (sender instanceof Player && (c.equals("clearstatus") || c.equals("cs") || c.equals("back"))) {
+			response = cClearstatus((Player) sender);
 		} else if (sender instanceof Player && c.equals("afk")) {
 			response = cAfk((Player) sender);
-		} else if (sender instanceof Player && c.equals("back")) {
-			response = cBack((Player) sender);
+		} else if (sender instanceof Player && (c.equals("recording") || c.equals("rec"))) {
+			response = cRecording((Player) sender);
 		}
 		
 		if (response != null)
@@ -42,8 +44,6 @@ public class SimpleStatus extends JavaPlugin  {
 	private String cStatus(Player sender, String[] args) {
 		if (args.length == 0) {
 			return cStatus(sender);
-		} else if (args.length == 1 && "clear".equals(args[0])) {
-			return cStatusClear(sender);
 		} else {
 			String status = "";
 			for(String arg : args) {
@@ -58,40 +58,38 @@ public class SimpleStatus extends JavaPlugin  {
 	private String cStatus(Player sender) {
 		Status status = getStatus(sender);
 		String response;
-		if (status == null) response = ChatColor.AQUA + "Your status is not set.";
-		else response = ChatColor.AQUA + "Your current status is: " + status;
+		if (status == null) response = ChatColor.YELLOW + "Your status is not set.";
+		else response = ChatColor.YELLOW + "Your status is " + status + ChatColor.RESET + ChatColor.YELLOW + " (since " 
+				+ status.getFormattedAge() + " ago).";;
 		return response + "\n" 
-				+ ChatColor.BLUE + "  To change your status, type " + ChatColor.BOLD + "/status [your new status]\n"
-				+ ChatColor.RESET + ChatColor.BLUE + "  To clear your status, type " + ChatColor.BOLD + "/status clear";
+				+ ChatColor.AQUA + "To change your status, type " + ChatColor.BOLD + "/status [your new status]\n"
+				+ ChatColor.RESET + ChatColor.AQUA + "To clear your status, type " + ChatColor.BOLD + "/clear";
 				
 		
 	}
 
 
-	private String cStatusClear(Player sender) {
+	private String cClearstatus(Player sender) {
 		clearStatus(sender);
 		return null;
 	}
 
 
 	private String cAfk(Player sender) {
-		updateStatus(sender, "AFK");
+		updateStatus(sender, "AFK", ChatColor.LIGHT_PURPLE);
 		return null;
 	}
 
-
-	private String cBack(Player sender) {
-		if ("AFK".equals(getStatus(sender))) {
-			clearStatus(sender);
-			return null;
-		} else {
-			return ChatColor.RED + "You are not currently marked as AFK.";
-		}
+	private String cRecording(Player sender) {
+		updateStatus(sender, "recording", ChatColor.RED);
+		return null;
 	}
 
-
-	public void updateStatus(Player p, String status) {
-		statuses.put(p.getName().toLowerCase(),new Status(status));
+	public void updateStatus(Player p, String status) { updateStatus(p, new Status(status)); }
+	public void updateStatus(Player p, String status, ChatColor color) { updateStatus(p, new Status(status, color)); }
+		
+	public void updateStatus(Player p, Status status) {
+		statuses.put(p.getName().toLowerCase(),status);
 		getServer().broadcastMessage(getStatusMessage(p, " is now "));
 	}
 	
