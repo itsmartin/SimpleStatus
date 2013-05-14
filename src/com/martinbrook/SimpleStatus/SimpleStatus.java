@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SimpleStatus extends JavaPlugin  {
 
-	private HashMap<String, String> statuses = new HashMap<String, String>();
+	private HashMap<String, Status> statuses = new HashMap<String, Status>();
 	
     @Override
     public void onEnable(){
@@ -56,10 +56,10 @@ public class SimpleStatus extends JavaPlugin  {
 	}
 	
 	private String cStatus(Player sender) {
-		String status = getStatus(sender);
+		Status status = getStatus(sender);
 		String response;
-		if (status.length()==0) response = ChatColor.AQUA + "Your status is not set.";
-		else response = ChatColor.AQUA + "Your current status is: " + ChatColor.GOLD + getStatus(sender);
+		if (status == null) response = ChatColor.AQUA + "Your status is not set.";
+		else response = ChatColor.AQUA + "Your current status is: " + status;
 		return response + "\n" 
 				+ ChatColor.BLUE + "  To change your status, type " + ChatColor.BOLD + "/status [your new status]\n"
 				+ ChatColor.RESET + ChatColor.BLUE + "  To clear your status, type " + ChatColor.BOLD + "/status clear";
@@ -91,29 +91,27 @@ public class SimpleStatus extends JavaPlugin  {
 
 
 	public void updateStatus(Player p, String status) {
-		statuses.put(p.getName().toLowerCase(),status);
+		statuses.put(p.getName().toLowerCase(),new Status(status));
 		getServer().broadcastMessage(getStatusMessage(p, " is now "));
 	}
 	
 	public void clearStatus(Player p) {
 		getServer().broadcastMessage(getStatusMessage(p, " is no longer "));
-		statuses.put(p.getName().toLowerCase(),"");
+		statuses.remove(p.getName().toLowerCase());
 	}
 	
-	public String getStatus(Player p) {
-		String status = statuses.get(p.getName().toLowerCase());
-		if (status == null) status = "";
-		return status;
+	public Status getStatus(Player p) {
+		return statuses.get(p.getName().toLowerCase());
 	}
 	
 	public boolean hasStatus(Player p) {
-		return getStatus(p).length() > 0;
+		return statuses.containsKey(p.getName().toLowerCase());
 	}
 	
 	public String getStatusMessage(Player p) { return getStatusMessage(p, " is "); }
 	public String getStatusMessage(Player p, String joiner) {
 		return ChatColor.GRAY + p.getDisplayName() + ChatColor.RESET + ChatColor.GRAY + joiner
-				+ ChatColor.BLUE + getStatus(p);
+				+ ChatColor.RESET + getStatus(p);
 	}
 
 
