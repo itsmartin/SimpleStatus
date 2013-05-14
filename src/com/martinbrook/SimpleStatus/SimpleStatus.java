@@ -1,5 +1,6 @@
 package com.martinbrook.SimpleStatus;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SimpleStatus extends JavaPlugin  {
 
 	private HashMap<String, Status> statuses = new HashMap<String, Status>();
+	private HashMap<String, Calendar> lastSeenTimes = new HashMap<String, Calendar>();
 	
     @Override
     public void onEnable(){
@@ -93,11 +95,12 @@ public class SimpleStatus extends JavaPlugin  {
 		getServer().broadcastMessage(getStatusMessage(p, " is now "));
 	}
 	
-	public void clearStatus(Player p) {
-		getServer().broadcastMessage(getStatusMessage(p, " is no longer "));
+	public void clearStatus(Player p) { clearStatus(p,false); }
+	public void clearStatus(Player p, boolean silent) {
+		if (!silent) getServer().broadcastMessage(getStatusMessage(p, " is no longer "));
 		statuses.remove(p.getName().toLowerCase());
 	}
-	
+
 	public Status getStatus(Player p) {
 		return statuses.get(p.getName().toLowerCase());
 	}
@@ -129,6 +132,15 @@ public class SimpleStatus extends JavaPlugin  {
 			if (!p.getName().equalsIgnoreCase(player.getName())) p.sendMessage(message);
 		}
 		
+	}
+
+
+	public void setLastSeenTime(Player p) {
+		lastSeenTimes.put(p.getName().toLowerCase(), Calendar.getInstance());
+	}
+	
+	public Calendar getLastSeenTime(Player p) {
+		return lastSeenTimes.get(p.getName().toLowerCase());
 	}
 
 }
