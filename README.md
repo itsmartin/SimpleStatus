@@ -19,7 +19,7 @@ The following commands are available in this plugin:
 This command allows you to view or set your status message. It can be shortened to **/st**.
 
 * To view your current status, type **/status**
-* To update your status, type **/status New Status Here**
+* To update your status, type **/status** ***New Status Here***
 
 ### /clearstatus
 
