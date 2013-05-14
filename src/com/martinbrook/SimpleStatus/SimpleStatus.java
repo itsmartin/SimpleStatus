@@ -60,12 +60,12 @@ public class SimpleStatus extends JavaPlugin  {
 	private String cStatus(Player sender) {
 		Status status = getStatus(sender);
 		String response;
-		if (status == null) response = ChatColor.YELLOW + "Your status is not set.";
-		else response = ChatColor.YELLOW + "Your status is " + status + ChatColor.RESET + ChatColor.YELLOW + " (since " 
+		if (status == null) response = ChatColor.AQUA + "Your status is not set.";
+		else response = ChatColor.AQUA + "Your status is " + status + ChatColor.RESET + ChatColor.AQUA + " (since " 
 				+ status.getFormattedAge() + " ago).";;
 		return response + "\n" 
-				+ ChatColor.AQUA + "To change your status, type " + ChatColor.BOLD + "/status [your new status]\n"
-				+ ChatColor.RESET + ChatColor.AQUA + "To clear your status, type " + ChatColor.BOLD + "/clear";
+				+ ChatColor.GRAY + "To change your status, type " + ChatColor.BOLD + "/status [your new status]\n"
+				+ ChatColor.RESET + ChatColor.GRAY + "To clear your status, type " + ChatColor.BOLD + "/clear";
 				
 		
 	}
@@ -111,7 +111,7 @@ public class SimpleStatus extends JavaPlugin  {
 	
 	public String getStatusMessage(Player p) { return getStatusMessage(p, " is "); }
 	public String getStatusMessage(Player p, String joiner) {
-		return ChatColor.GRAY + p.getDisplayName() + ChatColor.RESET + ChatColor.GRAY + joiner
+		return ChatColor.AQUA + p.getDisplayName() + ChatColor.RESET + ChatColor.AQUA + joiner
 				+ ChatColor.RESET + getStatus(p);
 	}
 

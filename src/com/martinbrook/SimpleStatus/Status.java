@@ -9,7 +9,7 @@ public class Status {
 	private ChatColor color;
 	private Calendar timestamp;
 	
-	private static final ChatColor defaultColor = ChatColor.BLUE;
+	private static final ChatColor defaultColor = ChatColor.YELLOW;
 	
 	public Status(String text) { this(text, defaultColor); }
 	
