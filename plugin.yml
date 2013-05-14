@@ -1,6 +1,6 @@
 name: SimpleStatus
 main: com.martinbrook.SimpleStatus.SimpleStatus
-version: 0.12
+version: 0.13
 description: A simple status plugin
 commands:
  status:
